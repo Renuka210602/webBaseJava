@@ -16,8 +16,8 @@ public class BookingService {
 		return bookingDao.save(userId, flightId);
 	}
 
-	public List<Booking> getBookFlights(int userId) {
-		return bookingDao.findAllById(userId);
+	public List<Booking> getBookFlights() {
+		return bookingDao.getAllFlights();
 	}
 
 }

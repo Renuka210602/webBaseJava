@@ -3,6 +3,7 @@ package com.airline.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,32 +33,31 @@ public class BookingDao {
 			return status;
 		}
 		
-		public List<Booking> findAllById(int userId){
+		public List<Booking> getAllFlights() {
 			List<Booking> bookings = new ArrayList<Booking>();
-			query = "select * from booking where user_id = ?";
-			try(
-					Connection con = JDBCUtils.getDbConnection();
-					PreparedStatement pstm = con.prepareStatement(query);
-					){
-				pstm.setInt(1, userId);
-				ResultSet rs = pstm.executeQuery();
-				while(rs.next()) {
-					bookings.add(new Booking(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getDate(4).toLocalDate()));
+			String query = "select * from booking";
+			try (Connection conn = JDBCUtils.getDbConnection(); 
+					Statement stmt = conn.createStatement();) {
+				ResultSet st = stmt.executeQuery(query);
+
+				while (st.next()) {
+					bookings.add(new Booking(st.getInt("id"), st.getInt("user_id"), st.getInt("flight_id"),
+							st.getDate("booking_date").toLocalDate()));
 				}
-			}catch(Exception e) {
-				System.err.println(e.getMessage());
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			return bookings;	
+			return bookings;
 		}
+
+		
 		public boolean cancelFlight(int id)
 		{
 			Boolean status = false;
 			String query = "delete from booking where id = ?;";
 			try (Connection conn = JDBCUtils.getDbConnection(); PreparedStatement pstmt = conn.prepareStatement(query);) {
 				pstmt.setInt(1, id);
-				
 				int count = pstmt.executeUpdate();
-				
 				if(count > 0)
 					status = true;
 			}

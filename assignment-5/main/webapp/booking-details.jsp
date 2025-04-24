@@ -8,13 +8,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Your Bookings</title>
+<title>Insert title here</title>
 </head>
 <body align="center">
 	<%
-       List<Booking> bookings =(List<Booking>)request.getAttribute("bookings");
-		 for(Booking booking:bookings) 
-		 {
+		List<Booking> bookings = new BookingDao().getAllFlights();
+		 for (Booking booking : bookings) {
 		%>
 		<h1>
 			ID: <%= booking.getId() %> 
@@ -24,7 +23,7 @@
 		</h1>
 		<form action="cancleBooking" method="post">
 		<input type="hidden" name="bookingId" value=<%= booking.getId() %>> 
-		<button>Cancle</button>
+		<button>Cancel</button>
 		</form>
 	<% } %>
 </body>

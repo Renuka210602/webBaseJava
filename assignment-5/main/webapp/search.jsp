@@ -14,7 +14,5 @@
 		<br>Date: <input type="text" name="date"><br>
 		<br><input type="submit" value="Search"><br>
 	</form>
-	<br>
-	<a href = "booking-details.jsp">Your Bookings</a>
 </body>
 </html>

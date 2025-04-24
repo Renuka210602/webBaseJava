@@ -19,8 +19,9 @@
 		Schedule Date: <%=f.getFlight_date()%> | Price: <%=f.getPrice()%> <br>
 		
 		<form action="bookFlight" method="post">
-		<input type="hidden" name="flightId" value=<%=f.getId()%>>
 		<input type="submit" value="Book">
+		<input type="hidden" name="flightId" value=<%=f.getId()%>>
+		
 		</form>
 		<hr/>
 	</p>

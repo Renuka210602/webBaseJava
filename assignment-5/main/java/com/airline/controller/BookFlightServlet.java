@@ -43,9 +43,7 @@ public class BookFlightServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		
-		HttpSession session = request.getSession();
-		Object id = session.getAttribute("userId");
+
 		int userId =(int)(request.getSession().getAttribute("userId"));
 		int flightId = Integer.parseInt(request.getParameter("flightId"));
 		BookingService service = new BookingService();
